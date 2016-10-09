@@ -564,8 +564,9 @@ OrderHistory.prototype.askForRating = function () {
     var timeDiff = timeDiffInMins(currentTime, lstTime);
     if (timeDiff > 60 * 23) {//after 12 hours
         setTimeout(function(){
-            $.mobile.changePage("#rating");
-        }, 2000);
+            $("#ratingpage").popup();
+            $("#ratingpage").popup("open")
+        }, 500);
 
     }
 }
@@ -790,7 +791,7 @@ function saveFeedback(pRating, dRating, message) {
     feedback.comment = message;
     var history = new OrderHistory().getHistory();
     if (history == null) {
-        window.history.back();
+        $("#ratingpage").popup("close")
         return;
     }
     feedback.relatedOrder = history.items[0];
@@ -804,13 +805,12 @@ function saveFeedback(pRating, dRating, message) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         complete: function (data) {
+            $("#ratingpage").popup("close")
             new OrderHistory().rated();
+
 
         }
     });
-
-
-    $.mobile.back();
 }
 function submitFeedback(src) {
     var delivery = document.querySelector('input[name="dRating"]:checked');

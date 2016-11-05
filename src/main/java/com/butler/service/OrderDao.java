@@ -8,23 +8,23 @@ package com.butler.service;
 import com.butler.data.OrderDetails;
 import com.fishcart.order.Order;
 import com.fishcart.order.OrderStatus;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -35,9 +35,9 @@ public class OrderDao extends JdbcTemplate {
     @Autowired
     UserDao userDao;
    
-    public int placeOrder(String number, String order, float quantity, boolean isImmediate,String slot){
+    public int placeOrder(String number, String order, float quantity, boolean isImmediate,String slot,String specification){
         KeyHolder holder = new GeneratedKeyHolder();
-        String sql = "insert into orders(number,product,quantity,status,immediate,slot) values(?,?,?,?,?,?)";
+        String sql = "insert into orders(number,product,quantity,status,immediate,slot,specification) values(?,?,?,?,?,?,?)";
         this.update(new PreparedStatementCreator() {           
 
                 @Override
@@ -50,6 +50,7 @@ public class OrderDao extends JdbcTemplate {
                     ps.setString(4, "TODO");
                     ps.setBoolean(5, isImmediate);
                     ps.setString(6, slot);
+                    ps.setString(7,specification);
                     return ps;
                 }
             }, holder);

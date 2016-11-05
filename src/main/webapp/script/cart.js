@@ -33,11 +33,16 @@ function onBodyLoaded() {
             window.location = "../cart/listProducts.jsp"
             return;
         }
+        $("#instruction").val("");
         enableImmediate(product);
+        setCuttingSpec(product);
         setSliderAndAmount();
     });
     $(document).on("pagechange", function (e, data) {
         loadedPageID = data.toPage[0].id;
+        if(loadedPageID =="entryPage"){
+            new OrderHistory().askForRating();
+        }
     });
     $("#popupInfo").change(function () {
         var slider_value = $("#quantity-step").val();
@@ -51,6 +56,13 @@ function onBodyLoaded() {
     configureHeader();
     initProducts();
     hideDeliveryCharges();
+    $zopim(function() {
+        var number = getNumber();
+        if(number==null||number==""){
+            number="unknown";
+        }
+        $zopim.livechat.setName(number);
+    });
     //runMigration();
     $("input[name='timing']").bind("change", function (event, ui) {
         computeDiscount(event, ui);
@@ -150,6 +162,22 @@ function validateNumber() {
     }
     return true;
 }
+function setCuttingSpec(currentProduct){
+    if(currentProduct.cuttingType==null){
+        $("#cuttingSpec").hide();
+        return;
+    }
+    $("#cuttingSpec").show();
+    var cuttingTypes= currentProduct.cuttingType;
+    $("#cuttingRadio").controlgroup("container").empty();
+    for(var i=0;i<cuttingTypes.length;i++){
+        var cuttingType= cuttingTypes[i];
+        var component = '<input type="radio" name="cuttinggroup" id="cs'+i+'" value="on" checked="checked">';
+        var label = '<label for="cs'+i+'">'+cuttingType.description+'</label>';
+        $("#cuttingRadio").controlgroup("container").append(component+label);
+    }
+    $("#cuttingRadio").enhanceWithin().controlgroup("refresh");
+}
 function saveNumberInBrowser(no) {
     if (typeof (Storage) !== "undefined") {
         localStorage.setItem("number", no);
@@ -171,6 +199,10 @@ function hideDeliveryCharges() {
 
     $("#warning").hide();
 }
+function getCuttingStyle() {
+    return $("input[name='cuttinggroup']:checked").siblings()[0]? $("input[name='cuttinggroup']:checked").siblings()[0].textContent:null
+
+}
 function placeOrder() {
 
     validateContext();
@@ -188,6 +220,7 @@ function placeOrder() {
         immediate = !($("#lLater").hasClass("ui-radio-on"));
     }
     var slot = $("input[name='timing']:checked").siblings()[0].textContent;
+    var cuttingstyle = getCuttingStyle();
     var url = "api/placeOrder?number=" + no
         + "&product=" + item +
         "&quantity=" + quantity +
@@ -198,7 +231,12 @@ function placeOrder() {
     var address = "address=" + $("#address").val();
     $.ajax({
         type: 'POST',
-        data: address,
+        data: {
+            address:$('#address').val(),
+            instruction:$('#instruction').val(),
+            cuttingStyle:cuttingstyle
+
+        },
         beforeSend: function (request) {
             $.mobile.loading('show');
             request.setRequestHeader("Cache-Control", "no-cache");
@@ -516,10 +554,10 @@ var CookStep = function () {
 }
 var FoodStep = function () {
     this.initialStep = 1;
-    this.minStep = .5;
+    this.minStep = 1;
     this.maxStep = 10;
-    this.stepSize = .5;
-    this.unitDescription = "Price per KG";
+    this.stepSize = 1;
+    this.unitDescription = "Price per packet";
 
 }
 var DefaultStep = function () {
@@ -829,3 +867,4 @@ function submitFeedback(src) {
     saveFeedback(product.value, delivery.value, message);
 
 }
+

@@ -6,6 +6,7 @@
 package com.butler.data;
 
 import java.io.Serializable;
+import java.util.List;
 
 
 /**
@@ -26,9 +27,20 @@ public class Product implements Serializable {
     private boolean visible;
     private boolean bookingOnly;
     private int displayPosition;
-    public Product() {
+
+    private List<CuttingType> cuttingType;
+
+    public List<Option> getOptions() {
+        return options;
     }
 
+    public void setOptions(List<Option> options) {
+        this.options = options;
+    }
+
+    private List<Option> options;
+    public Product() {
+    }
     public Product(Integer id) {
         this.id = id;
     }
@@ -49,12 +61,20 @@ public class Product implements Serializable {
         this.name = name;
     }
 
-
-
-
-
     public String getPic() {
         return "api/product/image?name="+this.name;
+    }
+
+
+
+
+
+    public List<CuttingType> getCuttingType() {
+        return cuttingType;
+    }
+
+    public void setCuttingType(List<CuttingType> cuttingType) {
+        this.cuttingType = cuttingType;
     }
 
 

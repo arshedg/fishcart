@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="MySQL - fishcart@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="2.6">
+    <schema id="1" name="FISHCART">
+      <visible>1</visible>
+    </schema>
+    <schema id="2" name="information_schema"/>
+    <schema id="3" name="mysql"/>
+    <schema id="4" name="performance_schema"/>
+    <schema id="5" name="sys"/>
+    <table id="6" parent="1" name="feedback"/>
+    <table id="7" parent="1" name="notification_identity"/>
+    <table id="8" parent="1" name="orders"/>
+    <table id="9" parent="1" name="product"/>
+    <table id="10" parent="1" name="referral"/>
+    <table id="11" parent="1" name="revision"/>
+    <table id="12" parent="1" name="user"/>
+    <table id="13" parent="1" name="uservisit"/>
+    <table id="14" parent="1" name="cutting"/>
+    <table id="15" parent="1" name="options"/>
+    <column id="16" parent="6" name="number">
+      <data-type>varchar(20)|0</data-type>
+    </column>
+    <column id="17" parent="6" name="delivery">
+      <data-type>int(11)|0</data-type>
+    </column>
+    <column id="18" parent="6" name="quality">
+      <data-type>int(11)|0</data-type>
+    </column>
+    <column id="19" parent="6" name="message">
+      <data-type>varchar(2000)|0</data-type>
+    </column>
+    <column id="20" parent="6" name="relatedOrder">
+      <data-type>int(11)|0</data-type>
+    </column>
+    <column id="21" parent="6" name="id">
+      <mandatory>1</mandatory>
+      <data-type>int(11)|0</data-type>
+      <sequence-identity>1</sequence-identity>
+    </column>
+    <column id="22" parent="6" name="timestamp">
+      <data-type>timestamp|0</data-type>
+      <default-expression>CURRENT_TIMESTAMP</default-expression>
+    </column>
+    <key id="23" parent="6" name="PRIMARY">
+      <columns>id</columns>
+      <primary>1</primary>
+    </key>
+    <column id="24" parent="7" name="id">
+      <mandatory>1</mandatory>
+      <data-type>int(11)|0</data-type>
+      <sequence-identity>1</sequence-identity>
+    </column>
+    <column id="25" parent="7" name="number">
+      <mandatory>1</mandatory>
+      <data-type>varchar(15)|0</data-type>
+    </column>
+    <column id="26" parent="7" name="identity">
+      <mandatory>1</mandatory>
+      <data-type>varchar(500)|0</data-type>
+    </column>
+    <column id="27" parent="7" name="stamp">
+      <mandatory>1</mandatory>
+      <data-type>timestamp|0</data-type>
+      <default-expression>CURRENT_TIMESTAMP</default-expression>
+    </column>
+    <key id="28" parent="7" name="PRIMARY">
+      <columns>id</columns>
+      <primary>1</primary>
+    </key>
+    <column id="29" parent="8" name="id">
+      <mandatory>1</mandatory>
+      <data-type>int(11)|0</data-type>
+      <sequence-identity>1</sequence-identity>
+    </column>
+    <column id="30" parent="8" name="number">
+      <mandatory>1</mandatory>
+      <data-type>varchar(15)|0</data-type>
+    </column>
+    <column id="31" parent="8" name="product">
+      <mandatory>1</mandatory>
+      <data-type>varchar(50)|0</data-type>
+    </column>
+    <column id="32" parent="8" name="quantity">
+      <mandatory>1</mandatory>
+      <data-type>float|0</data-type>
+    </column>
+    <column id="33" parent="8" name="status">
+      <data-type>varchar(45)|0</data-type>
+    </column>
+    <column id="34" parent="8" name="stamp">
+      <data-type>timestamp|0</data-type>
+      <default-expression>CURRENT_TIMESTAMP</default-expression>
+    </column>
+    <column id="35" parent="8" name="is_alerted">
+      <mandatory>1</mandatory>
+      <data-type>tinyint(1)|0</data-type>
+      <default-expression>&apos;0&apos;</default-expression>
+    </column>
+    <column id="36" parent="8" name="immediate">
+      <data-type>bit(1)|0</data-type>
+    </column>
+    <column id="37" parent="8" name="feedback">
+      <data-type>varchar(500)|0</data-type>
+    </column>
+    <column id="38" parent="8" name="delivery_person">
+      <data-type>varchar(200)|0</data-type>
+    </column>
+    <column id="39" parent="8" name="slot">
+      <data-type>varchar(300)|0</data-type>
+      <default-expression>&apos;old order&apos;</default-expression>
+    </column>
+    <column id="40" parent="8" name="specification">
+      <data-type>varchar(2000)|0</data-type>
+    </column>
+    <key id="41" parent="8" name="PRIMARY">
+      <columns>id
+product</columns>
+      <primary>1</primary>
+    </key>
+    <column id="42" parent="9" name="id">
+      <mandatory>1</mandatory>
+      <data-type>int(11)|0</data-type>
+      <sequence-identity>1</sequence-identity>
+    </column>
+    <column id="43" parent="9" name="name">
+      <data-type>varchar(425)|0</data-type>
+    </column>
+    <column id="44" parent="9" name="display_name">
+      <data-type>varchar(545)|0</data-type>
+    </column>
+    <column id="45" parent="9" name="market_price">
+      <data-type>float|0</data-type>
+    </column>
+    <column id="46" parent="9" name="selling_price">
+      <data-type>float|0</data-type>
+    </column>
+    <column id="47" parent="9" name="size">
+      <data-type>varchar(300)|0</data-type>
+    </column>
+    <column id="48" parent="9" name="visible">
+      <data-type>bit(1)|0</data-type>
+    </column>
+    <column id="49" parent="9" name="display_position">
+      <data-type>int(11)|0</data-type>
+    </column>
+    <column id="50" parent="9" name="type">
+      <data-type>varchar(60)|0</data-type>
+    </column>
+    <column id="51" parent="9" name="pic">
+      <data-type>blob|0</data-type>
+    </column>
+    <column id="52" parent="9" name="booking_only">
+      <data-type>bit(1)|0</data-type>
+    </column>
+    <column id="53" parent="9" name="pic_large">
+      <data-type>longblob|0</data-type>
+    </column>
+    <column id="54" parent="9" name="cutting">
+      <data-type>varchar(300)|0</data-type>
+    </column>
+    <key id="55" parent="9" name="PRIMARY">
+      <columns>id</columns>
+      <primary>1</primary>
+    </key>
+    <column id="56" parent="10" name="id">
+      <mandatory>1</mandatory>
+      <data-type>int(11)|0</data-type>
+      <sequence-identity>1</sequence-identity>
+    </column>
+    <column id="57" parent="10" name="user">
+      <mandatory>1</mandatory>
+      <data-type>varchar(20)|0</data-type>
+    </column>
+    <column id="58" parent="10" name="referred_by">
+      <data-type>varchar(20)|0</data-type>
+    </column>
+    <column id="59" parent="10" name="stamp">
+      <data-type>timestamp|0</data-type>
+      <default-expression>CURRENT_TIMESTAMP</default-expression>
+    </column>
+    <column id="60" parent="10" name="rewarded">
+      <data-type>bit(1)|0</data-type>
+      <default-expression>b&apos;0&apos;</default-expression>
+    </column>
+    <key id="61" parent="10" name="PRIMARY">
+      <columns>id
+user</columns>
+      <primary>1</primary>
+    </key>
+    <column id="62" parent="11" name="version">
+      <mandatory>1</mandatory>
+      <data-type>int(11)|0</data-type>
+    </column>
+    <key id="63" parent="11" name="PRIMARY">
+      <columns>version</columns>
+      <primary>1</primary>
+    </key>
+    <column id="64" parent="12" name="id">
+      <mandatory>1</mandatory>
+      <data-type>int(11)|0</data-type>
+      <sequence-identity>1</sequence-identity>
+    </column>
+    <column id="65" parent="12" name="name">
+      <mandatory>1</mandatory>
+      <data-type>varchar(205)|0</data-type>
+    </column>
+    <column id="66" parent="12" name="number">
+      <mandatory>1</mandatory>
+      <data-type>varchar(15)|0</data-type>
+    </column>
+    <column id="67" parent="12" name="address">
+      <data-type>varchar(500)|0</data-type>
+    </column>
+    <column id="68" parent="12" name="credit">
+      <data-type>float|0</data-type>
+    </column>
+    <column id="69" parent="12" name="identity">
+      <data-type>varchar(150)|0</data-type>
+    </column>
+    <column id="70" parent="12" name="gps">
+      <data-type>varchar(200)|0</data-type>
+    </column>
+    <key id="71" parent="12" name="PRIMARY">
+      <columns>id</columns>
+      <primary>1</primary>
+    </key>
+    <column id="72" parent="13" name="id">
+      <mandatory>1</mandatory>
+      <data-type>int(11)|0</data-type>
+      <sequence-identity>1</sequence-identity>
+    </column>
+    <column id="73" parent="13" name="number">
+      <mandatory>1</mandatory>
+      <data-type>varchar(45)|0</data-type>
+    </column>
+    <column id="74" parent="13" name="name">
+      <data-type>varchar(45)|0</data-type>
+    </column>
+    <column id="75" parent="13" name="visit_time">
+      <data-type>timestamp|0</data-type>
+      <default-expression>CURRENT_TIMESTAMP</default-expression>
+    </column>
+    <key id="76" parent="13" name="PRIMARY">
+      <columns>id</columns>
+      <primary>1</primary>
+    </key>
+    <column id="77" parent="14" name="id">
+      <mandatory>1</mandatory>
+      <data-type>int(11)|0</data-type>
+      <sequence-identity>1</sequence-identity>
+    </column>
+    <column id="78" parent="14" name="group">
+      <data-type>varchar(300)|0</data-type>
+    </column>
+    <column id="79" parent="14" name="description">
+      <data-type>varchar(1000)|0</data-type>
+    </column>
+    <key id="80" parent="14" name="PRIMARY">
+      <columns>id</columns>
+      <primary>1</primary>
+    </key>
+    <column id="81" parent="15" name="product">
+      <data-type>int(11)|0</data-type>
+    </column>
+    <column id="82" parent="15" name="description">
+      <data-type>varchar(2000)|0</data-type>
+    </column>
+    <column id="83" parent="15" name="price">
+      <data-type>float|0</data-type>
+    </column>
+    <column id="84" parent="15" name="id">
+      <mandatory>1</mandatory>
+      <data-type>int(11)|0</data-type>
+      <sequence-identity>1</sequence-identity>
+    </column>
+    <key id="85" parent="15" name="PRIMARY">
+      <columns>id</columns>
+      <primary>1</primary>
+    </key>
+  </database-model>
+</dataSource>

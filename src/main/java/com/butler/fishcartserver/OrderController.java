@@ -9,11 +9,13 @@ import com.butler.service.OrderDao;
 import com.butler.service.PushNotifier;
 import com.butler.service.UserDao;
 import com.fishcart.order.OrderDetails;
-import java.util.logging.Level;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.logging.Level;
 
 /**
  *
@@ -32,13 +34,15 @@ public class OrderController {
             @RequestParam(value="quantity") float quantity,
             @RequestParam(value="immediate", required = false) boolean isExpress,
             @RequestParam(value="slot", required = false) String slot,
-            @RequestParam(value="address",required=false)String address)
+            @RequestParam(value="address",required=false)String address,
+             @RequestParam(value="cuttingStyle",required=false)String cuttingStyle,
+             @RequestParam(value="instruction",required=false)String instruction)
     {
         
         try{
             validateNumber(number);
             initUser(number,address);     
-            long value = orderDao.placeOrder(number, productID, quantity,isExpress,slot);
+            long value = orderDao.placeOrder(number, productID, quantity,isExpress,slot,getSpecification(cuttingStyle,instruction));
             alertDelivery(number, productID, quantity);
             return "SUCCESS:"+value;
         }catch(NumberFormatException exception){
@@ -60,6 +64,14 @@ public class OrderController {
         String text="Order placeing failed."+"User:"+userDao.getName(number)+". Contact number"+number+
                 "product:"+product;
         
+    }
+    private String getSpecification(String cuttingStyle,String instruction){
+        StringBuilder spec = new StringBuilder();
+        if(!StringUtils.isEmpty(cuttingStyle)){
+            spec.append(cuttingStyle+" :");
+        }
+        spec.append(instruction);
+        return spec.toString();
     }
     private void alertDelivery(String number,String product,float units){
         PushNotifier.sendNotification();

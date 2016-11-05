@@ -5,6 +5,7 @@
  */
 package com.butler.fishcartserver;
 
+import com.butler.service.NotificationDao;
 import com.butler.service.ReferralDao;
 import com.butler.service.RevisionDao;
 import com.butler.service.UserDao;
@@ -32,6 +33,8 @@ public class LoginController {
     UserDao userDao;
     @Autowired
     ReferralDao referalDao;
+    @Autowired
+    NotificationDao notificationDao;
     @RequestMapping("/appversion")
     public String versionInfo(){
         return revisionDao.getAppVersion()+"";
@@ -82,6 +85,13 @@ public class LoginController {
             userDao.saveLocation(number,location);
         }
         
+    }
+    @RequestMapping("/user/notification")
+    public void saveNotificationId(@RequestParam(value="number") String number,@RequestParam(value="identity") String identity){
+        if(StringUtils.isEmpty(number)){
+            return;
+        }
+        notificationDao.saveNotificationID(number,identity);
     }
     private void addReferre(String no,String referred){
         if(referred==null||"".equals(referred.trim())){

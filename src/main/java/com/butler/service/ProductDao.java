@@ -5,16 +5,21 @@
  */
 package com.butler.service;
 
+import com.butler.data.CuttingType;
+import com.butler.data.Option;
 import com.butler.data.Product;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.RowMapper;
+
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.ResultSetExtractor;
-import org.springframework.jdbc.core.RowMapper;
+import java.util.Map;
 
 
 /**
@@ -22,9 +27,16 @@ import org.springframework.jdbc.core.RowMapper;
  * @author arsh
  */
 public class ProductDao extends JdbcTemplate{
-    
+
+    @Autowired
+    private CuttingDao cuttingDao;
+    @Autowired
+    private OptionsDao optionsDao;
+
     public List<Product> getAllProducts(){
-        String sql = "select name,display_name,market_price,selling_price,size,type,booking_only from product where visible=1 order by display_position,booking_only";
+        String sql = "select id,name,display_name,market_price,selling_price,size,type,booking_only,cutting from product where visible=1 order by display_position,booking_only";
+        Map<String,List<CuttingType>> cutting = cuttingDao.getAllCutting();
+        Map<Integer,List<Option>> options = optionsDao.getOptionsMap();
         return this.query(sql, new RowMapper() {
 
             @Override
@@ -37,6 +49,8 @@ public class ProductDao extends JdbcTemplate{
                 product.setSizeSpecification(rs.getString("size"));
                 product.setType(rs.getString("type"));
                 product.setBookingOnly(rs.getBoolean("booking_only"));
+                product.setCuttingType(cutting.get(rs.getString("cutting")));
+                product.setOptions(options.get(rs.getInt("id")));
                 return product;
             }
         });

@@ -19,6 +19,16 @@
         <script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
         <script src="script/login.js"></script>
         <script src="script/cart.js?"></script>
+        <!--Start of Zopim Live Chat Script-->
+        <script type="text/javascript">
+            window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
+                    d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
+            _.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute("charset","utf-8");
+                $.src="//v2.zopim.com/?4HOUpyRLE1B2qwNQU7El0MNDLwdyjZ2i";z.t=+new Date;$.
+                        type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
+        </script>
+
+        <!--End of Zopim Live Chat Script-->
         <script>
             (function (i, s, o, g, r, a, m) {
                 i['GoogleAnalyticsObject'] = r;
@@ -231,9 +241,8 @@
                 <a id="side-menu-button" data-icon="bars"  class="ui-btn-right" style="margin-top:0px;" href="#navpanel">Menu</a>
                 <h3> Fish Cart</h3>
             </div>
-            <div data-role="popup" data-transition="flip" data-theme="d" id="ratingpage" style="display:inline-block;border-top: solid green 8px;background-color: white;width:260px;">
+            <div data-role="popup" data-dismissible="false"  data-transition="flip" data-theme="d" id="ratingpage" style="display:inline-block;border-top: solid green 8px;background-color: white;width:260px;">
                 Please provide the rating
-                <a href="#" data-rel="back" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
                 <div  class="ui-content">
                     <div >
                         <fieldset id="qualityRating" data-role="none" class="rating" style="width:100%">
@@ -325,7 +334,7 @@
 
         <div data-role="page" id="popupInfo">
             <div data-role="header" >
-                <a id="side-menu-button2" data-icon="carat-l"  class="ui-btn-left" style="margin-top:0px;" onclick="goBack();" href="">Back</a>
+                <a id="side-menu-button23" data-icon="carat-l"  class="ui-btn-left" style="margin-top:0px;" onclick="goBack();" href="">Back</a>
                 <h3 style="margin-left:0px;margin-right:0px;" id="productName">Mathy sardine</h3>
             </div>
 
@@ -362,7 +371,14 @@
                     <label  data-theme="d"  for="amountText"><b>Amount:</b></label>
                     <input data-theme="d"  type="text" name="clear" id="amountText" value="0" readonly="true">
                 </div>
-                <label id="lLater"for="address">Address</label>
+                <div id="cuttingSpec">
+                    <fieldset id="cuttingRadio" data-role="controlgroup" data-mini="true">
+                        <legend>Cutting specification:</legend>
+                    </fieldset>
+                </div>
+                <label for="instruction">Any special instruction?:</label>
+                <textarea row="5" type='text' id='instruction'></textarea>
+                <label for="address">Address</label>
                 <textarea row="5" type='text' id='address'></textarea>
                 <input id="orderButton" type="submit" value="PLACE ORDER" onclick="placeOrder()">
                 <div id="response"></div>

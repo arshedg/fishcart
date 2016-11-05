@@ -14,9 +14,9 @@
  <mvc:annotation-driven />
  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://103.10.235.203:3306/fishcart"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/fishcart"/>
         <property name="username" value="root"/>
-        <property name="password" value="PQLmoq15945"/>
+        <property name="password" value=""/>
   </bean>
   <!--
   jdbc:mysql://localhost:3306/fishcart
@@ -41,7 +41,16 @@
     <bean id="referralDao" class="com.butler.service.ReferralDao">
       <property name="dataSource" ref="dataSource"/>
    </bean>
-     <bean id="feedbackDao" class="com.butler.service.FeedbackDao">
+    <bean id="feedbackDao" class="com.butler.service.FeedbackDao">
       <property name="dataSource" ref="dataSource"/>
    </bean>
+    <bean id="notificationDao" class="com.butler.service.NotificationDao">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <bean id="cuttingDao" class="com.butler.service.CuttingDao">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <bean id="optionsDao" class="com.butler.service.OptionsDao">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
   </beans>
